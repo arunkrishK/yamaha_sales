@@ -288,7 +288,7 @@ if ($resultCheckStatus) {
     <title>Document</title>
 </head>
 <body>
-    <p>This is yamaha!!!</p>
+    <p>This is yamaha !!!</p>
     <h5>This is the Updated Files source!!!</h5>
 </body>
 </html>

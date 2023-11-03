@@ -65,13 +65,13 @@ if (isset($_POST['exchangesave'])) {
 include "connect.php";
 
 if (isset($_POST['financesave'])) {
-    
+    $customerCode = $_POST["code"];
+    $customerName = $_POST["name"];
     $ipreceivable = $_POST["ip_receivable"];
     $ipreceived = $_POST["ip_received"];
     $financereceivable = $_POST["finance_receivable"];
     $financereceived = $_POST["finance_received"];
-    $customerCode = $_POST["code"];
-    $customerName = $_POST["name"];
+    
 
 
     // Prepare and execute the SQL update statement
@@ -83,6 +83,12 @@ if (isset($_POST['financesave'])) {
         echo "Error updating exchange details: " . $conn->error;
     }
 }
+
+?>
+
+
+<?php
+
 
 
 if (isset($_POST['cashsave'])) {
@@ -96,7 +102,7 @@ if (isset($_POST['cashsave'])) {
     $cashOffer = floatval($_POST["Balance"]);
 
     // Perform the database update
-    $sql = "UPDATE project SET ROADSIDEASSISTANCE = '$roadsideAssistance', CUSTOMERSIDEINSURANCE = '$customerSideInsurance', EXTENDEDWARRANTY = '$extendedWarranty', CASHDISCOUNT = '$cashDiscount', OFFERAMOUNT = '$cashOffer' WHERE CUSTOMERCODE = '$customerCode' AND CUSTOMERNAME = '$customerName'";
+    $sql = "UPDATE project SET ROADSIDEASSISTANCE = '$roadsideAssistance', CUSTOMERSIDEINSURANCE = '$customerSideInsurance', EXTENDEDWARRANTY = '$extendedWarranty', CASHDISCOUNT = '$cashDiscount', CASHOFFERAMT = '$cashOffer' WHERE CUSTOMERCODE = '$customerCode' AND CUSTOMERNAME = '$customerName'";
 
     if ($conn->query($sql) === TRUE) {
         echo "Cash details updated successfully.";
@@ -894,7 +900,6 @@ $TotalProPlus = 0;
 $TotalAccessories = 0;
     $remaining = 0;
     $balance =0;
-    $bal =0;
     $offer = 0;
       ?>
       <thead>
@@ -1608,7 +1613,21 @@ var accountButton = document.getElementById('accountButton');
                 </div>
             </div>
         </div>
-        
+        <div class="cash-details1">
+        <div class="row">
+            <div class="col-6">
+                <label for="paymentCode">Code</label>
+                <input type="text" name="code" id="paymentCode" readonly>
+            </div>
+            <div class="col-6">
+                <label for="paymentName">Name</label>
+                <input type="text" name="name" id="paymentName" readonly>
+            </div>
+            <div class="col-6">
+                <label for="paymentType">Type</label>
+                <input type="text" name="type" id="paymentType" readonly>
+            </div>
+        </div>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
     const tableRows = document.querySelectorAll("tbody tr");
@@ -1707,47 +1726,29 @@ var accountButton = document.getElementById('accountButton');
 
 
         <form class="" action="" method="post">
-        <div class="cash-details1">
-        <div class="row">
-            <div class="col-6 ">
-                <label for="paymentCode">Code</label>
-                <input type="text" name="code" id="paymentCode">
-            </div>
-            <div class="col-6 ">
-                <label for="paymentName">Name</label>
-                <input type="text" name="name" id="paymentName" >
-            </div>
-            <div class="col-6 ">
-                <label for="paymentType">Type</label>
-                <input type="text" name="type" id="paymentType" >
-            </div>
-        </div>
-
-
-
 <div class="finance_details" id="financeDetails">
     <div class="row">
         <div class="col-6" style="margin-left: -6px;
     margin-top: 24px;">
             <label for="ip_receivable">IP Receivable</label>
-            <input style="width: 17pc;" type="text" name="ip_receivable" id="ip_receivable" >
+            <input style="width: 17pc;" type="text" name="ip_receivable" id="ip_receivable" required>
         </div>
         <div class="col-6" style="margin-left: -70px;
     margin-top: 24px;">
             <label for="ip_received">IP Received</label>
-            <input  style="width: 17pc;" type="text" name="ip_received" id="ip_received" >
+            <input  style="width: 17pc;" type="text" name="ip_received" id="ip_received" readonly>
         </div>
     </div>
     <div class="row">
         <div class="col-6" style="margin-left: -25px;
     margin-top: 24px;">
             <label for="finance_receivable">Finance Receivable</label>
-            <input type="text" style="width: 17pc;" name="finance_receivable" id="finance_receivable" >
+            <input type="text" style="width: 17pc;" name="finance_receivable" id="finance_receivable" required>
         </div>
         <div class="col-6" style="margin-left: -69px;
     margin-top: 24px;">
             <label for="finance_received">Finance Received</label>
-            <input type="text" style="width: 17pc;" name="finance_received" id="finance_received" >
+            <input type="text" style="width: 17pc;" name="finance_received" id="finance_received" readonly>
         </div>
     </div>
     <div class="row">
